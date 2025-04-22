@@ -1,0 +1,105 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.flywaydb.flyway' version '10.12.0'
+    id 'com.diffplug.spotless' version '6.25.0'
+}
+
+group = 'ch.spacerobot'
+version = '1.0-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+        vendor = JvmVendorSpec.ADOPTIUM
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    jwtVersion = '0.12.5'
+    flywayVersion = '11.4.0'
+    junitVersion = '5.10.0'
+    testContainersVersion = '1.19.7'
+}
+
+dependencies {
+    // Spring Boot Starters
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // Database
+    implementation "org.flywaydb:flyway-core:${flywayVersion}"
+    runtimeOnly 'org.postgresql:postgresql:42.7.3'
+
+    // Spatial (Hibernate + JTS for geometry support)
+
+    implementation 'org.hibernate.orm:hibernate-spatial:6.6.13.Final'
+    implementation 'org.locationtech.jts:jts-core:1.19.0'
+
+    // JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+
+    // JWT
+    implementation "io.jsonwebtoken:jjwt-api:${jwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jwtVersion}"
+
+    // Development
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.assertj:assertj-core'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+    systemProperty 'spring.profiles.active', 'test'
+}
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+        googleJavaFormat('1.17.0').aosp()
+        formatAnnotations()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+tasks.register('deploy', Exec) {
+    dependsOn build
+    commandLine 'docker-compose', 'up', '--build', '-d'
+}
+
+tasks.register('stopApp', Exec) {
+    commandLine 'docker-compose', 'down'
+}
+
+flyway {
+    url = 'jdbc:postgresql://localhost:5432/sportsync'
+    user = 'postgres'
+    password = 'postgres'
+    locations = ['classpath:db/migration']
+    cleanDisabled = false
+}
