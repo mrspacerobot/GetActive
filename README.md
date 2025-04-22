@@ -82,45 +82,6 @@ The project uses Spotless for code formatting. To apply the formatting rules, ru
 ./gradlew spotlessApply
 ```
 
-## Continuous Deployment with GitHub Actions
-
-### Setting up GitHub Actions for Continuous Deployment
-
-1. Create a new file in the repository at `.github/workflows/cd-pipeline.yml` with the following content:
-
-```yaml
-name: CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: 21
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Run tests
-        run: ./gradlew test
-
-      - name: Deploy application
-        run: ./gradlew deploy
-```
-
-2. Configure the necessary secrets in the repository settings. Go to the repository on GitHub, click on "Settings", then "Secrets", and add the required secrets for deployment.
-
 ## Contributing
 
 We welcome contributions to the project. To contribute, please follow these guidelines:
