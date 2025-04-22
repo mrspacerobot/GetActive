@@ -12,19 +12,19 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidTimeRange {
-    String message() default "End time must be after start time";
+  String message() default "End time must be after start time";
 
-    Class<?>[] groups() default {};
+  Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
+  Class<? extends Payload>[] payload() default {};
 }
 
 class StartBeforeEndValidator implements ConstraintValidator<ValidTimeRange, ActivityCreateDto> {
-    @Override
-    public boolean isValid(ActivityCreateDto dto, ConstraintValidatorContext context) {
-        if (dto.getStartTime() == null || dto.getEndTime() == null) {
-            return true;
-        }
-        return dto.getStartTime().isBefore(dto.getEndTime());
+  @Override
+  public boolean isValid(ActivityCreateDto dto, ConstraintValidatorContext context) {
+    if (dto.getStartTime() == null || dto.getEndTime() == null) {
+      return true;
     }
+    return dto.getStartTime().isBefore(dto.getEndTime());
+  }
 }

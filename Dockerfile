@@ -13,4 +13,4 @@ COPY src src
 RUN ./gradlew build -x test
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "build/libs/*.jar"]
+ENTRYPOINT ["java", "-jar", "build/libs/GetActive-1.0-SNAPSHOT.jar"]

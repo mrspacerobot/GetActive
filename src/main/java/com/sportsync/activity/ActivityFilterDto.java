@@ -7,17 +7,17 @@ import lombok.Data;
 
 @Data
 public class ActivityFilterDto {
-    private Sport sportType;
+  private Sport sportType;
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+  private LocalDateTime startDate;
+  private LocalDateTime endDate;
 
-    // Location fields
-    private Double lat;
-    private Double lon;
+  // Location fields
+  private Double lat;
+  private Double lon;
 
-    @PositiveOrZero private Double radius;
+  @PositiveOrZero private Double radius;
 
-    // Additional filter parameters based on filterType
-    private Map<String, Object> sportSpecificFilter;
+  // Additional filter parameters based on filterType
+  private Map<String, Object> sportSpecificFilter;
 }

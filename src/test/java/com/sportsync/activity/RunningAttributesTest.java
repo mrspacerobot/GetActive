@@ -10,28 +10,27 @@ import org.junit.jupiter.api.Test;
 
 class RunningAttributesTest {
 
-    private Validator validator;
+  private Validator validator;
 
-    @BeforeEach
-    void setup() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
+  @BeforeEach
+  void setup() {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    validator = factory.getValidator();
+  }
 
-    @Test
-    void shouldThrowWhenNegativeDistance() {
-        RunningAttributes attrs =
-                RunningAttributes.builder()
-                        .pace(5.0)
-                        .distance(-10.0)
-                        .terrain(RunningTerrain.ASPHALT)
-                        .build();
+  @Test
+  void shouldThrowWhenNegativeDistance() {
+    RunningAttributes attrs =
+        RunningAttributes.builder()
+            .pace(5.0)
+            .distance(-10.0)
+            .terrain(RunningTerrain.ASPHALT)
+            .build();
 
-        var violations = validator.validate(attrs);
+    var violations = validator.validate(attrs);
 
-        assertFalse(violations.isEmpty());
-        assertTrue(
-                violations.stream()
-                        .anyMatch(v -> v.getPropertyPath().toString().equals("distance")));
-    }
+    assertFalse(violations.isEmpty());
+    assertTrue(
+        violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("distance")));
+  }
 }

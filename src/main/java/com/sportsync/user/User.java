@@ -16,24 +16,24 @@ import lombok.*;
 @Builder
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+  @Column(nullable = false, unique = true)
+  private String email;
 
-    @Column(nullable = false)
-    private String password;
+  @Column(nullable = false)
+  private String password;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @OneToMany(mappedBy = "creator")
-    @Builder.Default
-    private Set<Activity> createdActivities = new HashSet<>();
+  @OneToMany(mappedBy = "creator")
+  @Builder.Default
+  private Set<Activity> createdActivities = new HashSet<>();
 
-    @ManyToMany(mappedBy = "participants")
-    @Builder.Default
-    private Set<Activity> joinedActivities = new HashSet<>();
+  @ManyToMany(mappedBy = "participants")
+  @Builder.Default
+  private Set<Activity> joinedActivities = new HashSet<>();
 }

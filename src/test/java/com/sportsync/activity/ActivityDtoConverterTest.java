@@ -17,117 +17,117 @@ import org.mockito.MockitoAnnotations;
 
 class ActivityDtoConverterTest {
 
-    private ActivityDtoConverter converter;
+  private ActivityDtoConverter converter;
 
-    @Mock private GeometryFactory geometryFactory;
+  @Mock private GeometryFactory geometryFactory;
 
-    @Mock private Point mockPoint;
+  @Mock private Point mockPoint;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        converter = new ActivityDtoConverter(geometryFactory);
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
+    converter = new ActivityDtoConverter(geometryFactory);
 
-        when(geometryFactory.createPoint(any(Coordinate.class))).thenReturn(mockPoint);
-    }
+    when(geometryFactory.createPoint(any(Coordinate.class))).thenReturn(mockPoint);
+  }
 
-    @Test
-    void convertDtoToActivity_shouldConvertAllFieldsCorrectly() {
-        LocalDateTime now = LocalDateTime.now();
-        ActivityCreateDto dto =
-                ActivityCreateDto.builder()
-                        .title("Basketball Game")
-                        .description("Casual basketball game at the park")
-                        .activityType("BASKETBALL")
-                        .startTime(now)
-                        .endTime(now.plusHours(2))
-                        .maxParticipants(10)
-                        .latitude(40.7128)
-                        .longitude(-74.0060)
-                        .build();
+  @Test
+  void convertDtoToActivity_shouldConvertAllFieldsCorrectly() {
+    LocalDateTime now = LocalDateTime.now();
+    ActivityCreateDto dto =
+        ActivityCreateDto.builder()
+            .title("Basketball Game")
+            .description("Casual basketball game at the park")
+            .activityType("BASKETBALL")
+            .startTime(now)
+            .endTime(now.plusHours(2))
+            .maxParticipants(10)
+            .latitude(40.7128)
+            .longitude(-74.0060)
+            .build();
 
-        User creator = new User();
-        creator.setId(UUID.randomUUID());
-        creator.setName("John Doe");
+    User creator = new User();
+    creator.setId(UUID.randomUUID());
+    creator.setName("John Doe");
 
-        Activity activity = converter.convertDtoToActivity(dto, creator);
+    Activity activity = converter.convertDtoToActivity(dto, creator);
 
-        assertEquals("Basketball Game", activity.getTitle());
-        assertEquals("Casual basketball game at the park", activity.getDescription());
-        assertEquals(Sport.BASKETBALL, activity.getActivityType());
-        assertEquals(now, activity.getStartTime());
-        assertEquals(now.plusHours(2), activity.getEndTime());
-        assertEquals(10, activity.getMaxParticipants());
-        assertSame(mockPoint, activity.getLocation());
-        assertSame(creator, activity.getCreator());
+    assertEquals("Basketball Game", activity.getTitle());
+    assertEquals("Casual basketball game at the park", activity.getDescription());
+    assertEquals(Sport.BASKETBALL, activity.getActivityType());
+    assertEquals(now, activity.getStartTime());
+    assertEquals(now.plusHours(2), activity.getEndTime());
+    assertEquals(10, activity.getMaxParticipants());
+    assertSame(mockPoint, activity.getLocation());
+    assertSame(creator, activity.getCreator());
 
-        verify(geometryFactory).createPoint(any(Coordinate.class));
-    }
+    verify(geometryFactory).createPoint(any(Coordinate.class));
+  }
 
-    @Test
-    void convertDtoToActivity_shouldHandleNullDescription() {
-        LocalDateTime now = LocalDateTime.now();
-        ActivityCreateDto dto =
-                ActivityCreateDto.builder()
-                        .title("Running Club")
-                        .activityType("RUNNING")
-                        .startTime(now)
-                        .endTime(now.plusHours(1))
-                        .maxParticipants(20)
-                        .latitude(40.7128)
-                        .longitude(-74.0060)
-                        .build();
+  @Test
+  void convertDtoToActivity_shouldHandleNullDescription() {
+    LocalDateTime now = LocalDateTime.now();
+    ActivityCreateDto dto =
+        ActivityCreateDto.builder()
+            .title("Running Club")
+            .activityType("RUNNING")
+            .startTime(now)
+            .endTime(now.plusHours(1))
+            .maxParticipants(20)
+            .latitude(40.7128)
+            .longitude(-74.0060)
+            .build();
 
-        User creator = new User();
+    User creator = new User();
 
-        Activity activity = converter.convertDtoToActivity(dto, creator);
+    Activity activity = converter.convertDtoToActivity(dto, creator);
 
-        assertEquals("Running Club", activity.getTitle());
-        assertNull(activity.getDescription());
-        assertEquals(Sport.RUNNING, activity.getActivityType());
-    }
+    assertEquals("Running Club", activity.getTitle());
+    assertNull(activity.getDescription());
+    assertEquals(Sport.RUNNING, activity.getActivityType());
+  }
 
-    @Test
-    void convertDtoToActivity_shouldConvertEnumCorrectly() {
-        LocalDateTime now = LocalDateTime.now();
-        ActivityCreateDto dto =
-                ActivityCreateDto.builder()
-                        .title("Tennis Match")
-                        .activityType("TENNIS")
-                        .startTime(now)
-                        .endTime(now.plusHours(1))
-                        .maxParticipants(4)
-                        .latitude(40.7128)
-                        .longitude(-74.0060)
-                        .build();
+  @Test
+  void convertDtoToActivity_shouldConvertEnumCorrectly() {
+    LocalDateTime now = LocalDateTime.now();
+    ActivityCreateDto dto =
+        ActivityCreateDto.builder()
+            .title("Tennis Match")
+            .activityType("TENNIS")
+            .startTime(now)
+            .endTime(now.plusHours(1))
+            .maxParticipants(4)
+            .latitude(40.7128)
+            .longitude(-74.0060)
+            .build();
 
-        User creator = new User();
+    User creator = new User();
 
-        Activity activity = converter.convertDtoToActivity(dto, creator);
+    Activity activity = converter.convertDtoToActivity(dto, creator);
 
-        assertEquals(Sport.TENNIS, activity.getActivityType());
-    }
+    assertEquals(Sport.TENNIS, activity.getActivityType());
+  }
 
-    @Test
-    void convertDtoToActivity_shouldThrowException_whenInvalidActivityType() {
-        LocalDateTime now = LocalDateTime.now();
-        ActivityCreateDto dto =
-                ActivityCreateDto.builder()
-                        .title("Invalid Sport")
-                        .activityType("NOT_A_SPORT")
-                        .startTime(now)
-                        .endTime(now.plusHours(1))
-                        .maxParticipants(10)
-                        .latitude(40.7128)
-                        .longitude(-74.0060)
-                        .build();
+  @Test
+  void convertDtoToActivity_shouldThrowException_whenInvalidActivityType() {
+    LocalDateTime now = LocalDateTime.now();
+    ActivityCreateDto dto =
+        ActivityCreateDto.builder()
+            .title("Invalid Sport")
+            .activityType("NOT_A_SPORT")
+            .startTime(now)
+            .endTime(now.plusHours(1))
+            .maxParticipants(10)
+            .latitude(40.7128)
+            .longitude(-74.0060)
+            .build();
 
-        User creator = new User();
+    User creator = new User();
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    converter.convertDtoToActivity(dto, creator);
-                });
-    }
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          converter.convertDtoToActivity(dto, creator);
+        });
+  }
 }

@@ -12,54 +12,54 @@ import org.mockito.MockitoAnnotations;
 
 class StartBeforeEndValidatorTest {
 
-    private StartBeforeEndValidator validator;
+  private StartBeforeEndValidator validator;
 
-    @Mock private ConstraintValidatorContext context;
+  @Mock private ConstraintValidatorContext context;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        validator = new StartBeforeEndValidator();
-    }
+  @BeforeEach
+  void setUp() {
+    MockitoAnnotations.openMocks(this);
+    validator = new StartBeforeEndValidator();
+  }
 
-    @Test
-    void shouldValidateWhenEndTimeIsAfterStartTime() {
-        LocalDateTime now = LocalDateTime.now();
+  @Test
+  void shouldValidateWhenEndTimeIsAfterStartTime() {
+    LocalDateTime now = LocalDateTime.now();
 
-        ActivityCreateDto dto =
-                ActivityCreateDto.builder().startTime(now).endTime(now.plusHours(1)).build();
+    ActivityCreateDto dto =
+        ActivityCreateDto.builder().startTime(now).endTime(now.plusHours(1)).build();
 
-        boolean isValid = validator.isValid(dto, context);
+    boolean isValid = validator.isValid(dto, context);
 
-        assertTrue(isValid);
-    }
+    assertTrue(isValid);
+  }
 
-    @Test
-    void shouldNotValidateWhenEndTimeIsBeforeStartTime() {
-        LocalDateTime now = LocalDateTime.now();
-        ActivityCreateDto dto =
-                ActivityCreateDto.builder().startTime(now).endTime(now.minusHours(1)).build();
+  @Test
+  void shouldNotValidateWhenEndTimeIsBeforeStartTime() {
+    LocalDateTime now = LocalDateTime.now();
+    ActivityCreateDto dto =
+        ActivityCreateDto.builder().startTime(now).endTime(now.minusHours(1)).build();
 
-        boolean isValid = validator.isValid(dto, context);
+    boolean isValid = validator.isValid(dto, context);
 
-        assertFalse(isValid);
-    }
+    assertFalse(isValid);
+  }
 
-    @Test
-    void shouldValidateWhenEndTimeEqualsStartTime() {
-        LocalDateTime now = LocalDateTime.now();
-        ActivityCreateDto dto = ActivityCreateDto.builder().startTime(now).endTime(now).build();
+  @Test
+  void shouldValidateWhenEndTimeEqualsStartTime() {
+    LocalDateTime now = LocalDateTime.now();
+    ActivityCreateDto dto = ActivityCreateDto.builder().startTime(now).endTime(now).build();
 
-        boolean isValid = validator.isValid(dto, context);
+    boolean isValid = validator.isValid(dto, context);
 
-        assertFalse(isValid);
-    }
+    assertFalse(isValid);
+  }
 
-    @Test
-    void shouldValidateWhenStartTimeOrEndTimeIsNull() {
-        ActivityCreateDto dto = ActivityCreateDto.builder().startTime(null).build();
+  @Test
+  void shouldValidateWhenStartTimeOrEndTimeIsNull() {
+    ActivityCreateDto dto = ActivityCreateDto.builder().startTime(null).build();
 
-        // When & Then
-        assertTrue(validator.isValid(dto, context));
-    }
+    // When & Then
+    assertTrue(validator.isValid(dto, context));
+  }
 }

@@ -22,57 +22,57 @@ import org.locationtech.jts.geom.Point;
 @AllArgsConstructor
 @Builder
 public class Activity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @Column(nullable = false)
-    private String title;
+  @Column(nullable = false)
+  private String title;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
+  @Column(columnDefinition = "TEXT")
+  private String description;
 
-    @Column(nullable = false)
-    private Sport activityType;
+  @Column(nullable = false)
+  private Sport activityType;
 
-    @Column(nullable = false)
-    private LocalDateTime startTime;
+  @Column(nullable = false)
+  private LocalDateTime startTime;
 
-    @Column(nullable = false)
-    private LocalDateTime endTime;
+  @Column(nullable = false)
+  private LocalDateTime endTime;
 
-    @Column(nullable = false)
-    private Integer maxParticipants;
+  @Column(nullable = false)
+  private Integer maxParticipants;
 
-    @Column(columnDefinition = "geometry(Point,4326)")
-    private Point location;
+  @Column(columnDefinition = "geometry(Point,4326)")
+  private Point location;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", nullable = false)
-    private User creator;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "creator_id", nullable = false)
+  private User creator;
 
-    @ManyToMany
-    @JoinTable(
-            name = "activity_participants",
-            joinColumns = @JoinColumn(name = "activity_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @Builder.Default
-    private Set<User> participants = new HashSet<>();
+  @ManyToMany
+  @JoinTable(
+      name = "activity_participants",
+      joinColumns = @JoinColumn(name = "activity_id"),
+      inverseJoinColumns = @JoinColumn(name = "user_id"))
+  @Builder.Default
+  private Set<User> participants = new HashSet<>();
 
-    @Column(columnDefinition = "jsonb")
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Convert(converter = SportAttributesConverter.class)
-    private SportAttributes attributes;
+  @Column(columnDefinition = "jsonb")
+  @JdbcTypeCode(SqlTypes.JSON)
+  @Convert(converter = SportAttributesConverter.class)
+  private SportAttributes attributes;
 
-    @CreationTimestamp private LocalDateTime createdAt;
+  @CreationTimestamp private LocalDateTime createdAt;
 
-    @UpdateTimestamp private LocalDateTime updatedAt;
+  @UpdateTimestamp private LocalDateTime updatedAt;
 
-    @SuppressWarnings("unchecked")
-    public <T extends SportAttributes> Optional<T> getAttributesAs(Class<T> clazz) {
-        if (clazz.isInstance(attributes)) {
-            return Optional.of((T) attributes);
-        }
-        return Optional.empty();
+  @SuppressWarnings("unchecked")
+  public <T extends SportAttributes> Optional<T> getAttributesAs(Class<T> clazz) {
+    if (clazz.isInstance(attributes)) {
+      return Optional.of((T) attributes);
     }
+    return Optional.empty();
+  }
 }

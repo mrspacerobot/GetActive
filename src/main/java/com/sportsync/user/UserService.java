@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public User getUserById(UUID userId) {
-        return userRepository
-                .findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-    }
+  public User getUserById(UUID userId) {
+    return userRepository
+        .findById(userId)
+        .orElseThrow(() -> new RuntimeException("User not found"));
+  }
 }
