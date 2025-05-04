@@ -34,9 +34,9 @@ repositories {
 
 ext {
     jwtVersion = '0.12.5'
-    flywayVersion = '11.4.0'
+    flywayVersion = '11.8.0'
     junitVersion = '5.10.0'
-    testContainersVersion = '1.19.7'
+    testContainersVersion = '1.21.0'
 }
 
 dependencies {
@@ -86,6 +86,10 @@ tasks.named('test') {
         exceptionFormat "full"
     }
     systemProperty 'spring.profiles.active', 'test'
+}
+
+test {
+    finalizedBy jacocoTestReport
 }
 
 spotless {

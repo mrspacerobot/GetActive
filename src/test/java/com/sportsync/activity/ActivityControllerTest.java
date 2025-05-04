@@ -46,7 +46,6 @@ public class ActivityControllerTest {
 
   @Test
   void createActivity_ShouldReturnCreatedActivity() {
-    // Arrange
     ActivityCreateDto createDto = ActivityCreateDto.builder().title("New Running Group").build();
 
     when(activityService.createActivity(any(ActivityCreateDto.class), eq(testUserId)))

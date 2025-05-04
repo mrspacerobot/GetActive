@@ -101,7 +101,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
 
       ActivityFilter filter = ActivityFilter.builder().endDate(LocalDateTime.now()).build();
 
-      // Use findWithFilter instead of specifications
       Page<Activity> result = activityRepository.findWithFilter(filter, PageRequest.of(0, 10));
 
       assertEquals(1, result.getTotalElements());
@@ -140,7 +139,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
 
       ActivityFilter filter = ActivityFilter.builder().sportFilter(runningFilter).build();
 
-      // Use findWithFilter instead of specifications
       Page<Activity> result = activityRepository.findWithFilter(filter, PageRequest.of(0, 10));
 
       assertEquals(1, result.getTotalElements());
@@ -166,7 +164,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
 
       ActivityFilter filter = ActivityFilter.builder().sportFilter(runningFilter).build();
 
-      // Use findWithFilter instead of specifications
       Page<Activity> result = activityRepository.findWithFilter(filter, PageRequest.of(0, 10));
 
       assertEquals(1, result.getTotalElements());
@@ -231,7 +228,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
     void shouldFilterActivitiesByCombinedRunningAttributes(RunningFilterTestCase testCase) {
       User user = persistUser("methodsource@example.com");
 
-      // Prepare activities
       persistActivity(
           user,
           0,
@@ -275,7 +271,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
 
       ActivityFilter filter = ActivityFilter.builder().sportFilter(runningFilter).build();
 
-      // Use findWithFilter instead of specifications
       Page<Activity> result = activityRepository.findWithFilter(filter, PageRequest.of(0, 10));
 
       assertEquals(testCase.expectedMatches(), result.getTotalElements());
@@ -299,8 +294,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
     void shouldCombineLocationDateAndAttributeFilters() {
       // Create a user
       var user = persistUser("combined@example.com");
-
-      // Create activities with different attributes and locations
 
       // Activity 1: Matching - nearby, within date range, matching running attributes
       RunningAttributes matchingAttrs =
@@ -380,7 +373,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
           result.getContent().getFirst().getId(),
           "The matching activity should be the one with the correct attributes, location and date");
 
-      // Verify activity properties
       var foundActivity = result.getContent().getFirst();
       assertTrue(foundActivity.getStartTime().isAfter(LocalDateTime.now()));
       assertTrue(foundActivity.getStartTime().isBefore(LocalDateTime.now().plusDays(5)));
@@ -395,8 +387,6 @@ class ActivityRepositoryTest extends BaseTestWithDatabase {
       assertTrue(attrs.pace() <= 6.0);
     }
   }
-
-  // --- Helpers ---
 
   private User persistUser(String email) {
     User user = User.builder().email(email).password("password").name("Test User").build();

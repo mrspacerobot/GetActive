@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -22,7 +21,6 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-@Disabled
 public class ActivityRepositoryPerformanceTest extends BaseTestWithDatabase {
 
   @Autowired private ActivityRepository activityRepository;

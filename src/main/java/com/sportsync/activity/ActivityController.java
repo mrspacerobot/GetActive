@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/activities")
+@RequestMapping("/api/v1/activity")
 @RequiredArgsConstructor
 public class ActivityController {
   private final ActivityService activityService;
@@ -37,7 +37,7 @@ public class ActivityController {
     return ResponseEntity.ok(activityService.filterActivities(filter, pageable));
   }
 
-  @PostMapping("/filter")
+  @PostMapping("/search")
   public ResponseEntity<Page<Activity>> filterActivities(
       @Valid @RequestBody ActivityFilterDto filterDto, @PageableDefault Pageable pageable) {
 
