@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'org.flywaydb.flyway' version '10.12.0'
+    id 'org.flywaydb.flyway' version '11.8.0'
     id 'com.diffplug.spotless' version '7.0.3'
     id "jacoco"
     id "org.sonarqube" version '3.5.0.2730'
@@ -49,6 +49,7 @@ dependencies {
 
     // Database
     implementation "org.flywaydb:flyway-core:${flywayVersion}"
+    implementation "org.flywaydb:flyway-database-postgresql"
     runtimeOnly 'org.postgresql:postgresql:42.7.3'
 
     // Spatial (Hibernate + JTS for geometry support)
@@ -104,17 +105,17 @@ spotless {
 
 tasks.register('deploy', Exec) {
     dependsOn build
-    commandLine 'docker-compose', 'up', '--build', '-d'
+    commandLine 'docker', 'compose', 'up', '--build', '-d'
 }
 
 tasks.register('stopApp', Exec) {
-    commandLine 'docker-compose', 'down'
+    commandLine 'docker', 'compose', 'down'
 }
 
 flyway {
-    url = 'jdbc:postgresql://localhost:5432/sportsync'
-    user = 'postgres'
-    password = 'postgres'
+    url = 'jdbc:postgresql://localhost:5432/sportfriends'  // Changed
+    user = 'sportuser'  // Changed
+    password = 'sportpass'  // Changed
     locations = ['classpath:db/migration']
     cleanDisabled = false
 }

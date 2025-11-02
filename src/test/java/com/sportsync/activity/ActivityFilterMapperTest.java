@@ -1,12 +1,16 @@
 package com.sportsync.activity;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.sportsync.activity.filter.ActivityFilter;
+import com.sportsync.activity.filter.ActivityFilterDto;
+import com.sportsync.activity.filter.ActivityFilterMapper;
+import com.sportsync.activity.filter.RunningFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

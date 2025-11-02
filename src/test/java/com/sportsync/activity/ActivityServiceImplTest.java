@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+import com.sportsync.activity.filter.ActivityFilter;
+import com.sportsync.activity.filter.RunningFilter;
 import com.sportsync.user.User;
 import com.sportsync.user.UserService;
 import java.time.LocalDateTime;

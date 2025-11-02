@@ -1,5 +1,8 @@
 package com.sportsync.activity;
 
+import com.sportsync.activity.filter.ActivityFilter;
+import com.sportsync.activity.filter.ActivityFilterDto;
+import com.sportsync.activity.filter.ActivityFilterMapper;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -39,7 +42,7 @@ public class ActivityController {
 
   @PostMapping("/search")
   public ResponseEntity<Page<Activity>> filterActivities(
-      @Valid @RequestBody ActivityFilterDto filterDto, @PageableDefault Pageable pageable) {
+          @Valid @RequestBody ActivityFilterDto filterDto, @PageableDefault Pageable pageable) {
 
     ActivityFilter filter = filterMapper.toActivityFilter(filterDto);
 

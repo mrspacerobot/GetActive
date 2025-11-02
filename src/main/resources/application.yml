@@ -1,0 +1,32 @@
+# Common properties shared across profiles
+spring:
+  profiles:
+    active: postgres  # Add this line to activate postgres profile by default
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+---
+# PostgreSQL Profile
+spring:
+  config:
+    activate:
+      on-profile: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sportfriends
+    username: sportuser
+    password: sportpass
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    baseline-on-migrate: true

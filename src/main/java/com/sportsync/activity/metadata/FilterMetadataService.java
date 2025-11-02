@@ -1,6 +1,7 @@
 package com.sportsync.activity.metadata;
 
 import com.sportsync.activity.Sport;
+import com.sportsync.activity.filter.RunningFilter;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -19,7 +20,7 @@ public class FilterMetadataService {
   public FilterMetadataService() {
     this.filterClassMap =
         Map.of(
-            Sport.RUNNING, com.sportsync.activity.RunningFilter.class
+            Sport.RUNNING, RunningFilter.class
             // Add more default mappings here
             );
   }

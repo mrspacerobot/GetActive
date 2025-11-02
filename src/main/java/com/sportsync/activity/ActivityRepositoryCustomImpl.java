@@ -1,5 +1,6 @@
 package com.sportsync.activity;
 
+import com.sportsync.activity.filter.ActivityFilter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -42,7 +43,7 @@ public class ActivityRepositoryCustomImpl implements ActivityRepositoryCustom {
     // Add sport type predicate if present
     if (filter.getSportType() != null) {
       whereClause.append(" AND a.activity_type = :activityType");
-      params.put("activityType", filter.getSportType().ordinal());
+      params.put("activityType", filter.getSportType().name());
     }
 
     // Add all predicates from the filter

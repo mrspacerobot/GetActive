@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgis/postgis:17-3.5
     container_name: sportfriends-db
     environment:
       POSTGRES_DB: sportfriends

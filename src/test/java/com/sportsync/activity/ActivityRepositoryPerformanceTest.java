@@ -1,6 +1,8 @@
 package com.sportsync.activity;
 
 import com.sportsync.BaseTestWithDatabase;
+import com.sportsync.activity.filter.ActivityFilter;
+import com.sportsync.activity.filter.RunningFilter;
 import com.sportsync.user.User;
 import java.sql.Connection;
 import java.sql.Statement;

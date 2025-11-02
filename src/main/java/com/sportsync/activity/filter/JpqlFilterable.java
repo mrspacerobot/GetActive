@@ -1,4 +1,6 @@
-package com.sportsync.activity;
+package com.sportsync.activity.filter;
+
+import com.sportsync.activity.Sport;
 
 import java.util.List;
 import java.util.Map;

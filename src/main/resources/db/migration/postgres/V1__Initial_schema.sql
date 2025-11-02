@@ -36,13 +36,11 @@ CREATE TABLE activity_participants (
 -- INDEXES
 -- Spatial
 CREATE INDEX idx_activities_location ON activities USING GIST(location);
-CREATE INDEX idx_activities_location_time ON activities USING GIST (location, start_time);
 
--- Composite + filtering
+-- Temporal and composite indexes
 CREATE INDEX idx_activity_type_start_time ON activities(activity_type, start_time);
-CREATE INDEX idx_activities_future ON activities(start_time) WHERE start_time > NOW();
+CREATE INDEX idx_activities_start_time ON activities(start_time);  -- Simple time index
 CREATE INDEX idx_activities_creator ON activities(creator_id);
 
 -- Users
 CREATE UNIQUE INDEX idx_users_lower_email ON users (LOWER(email));
-

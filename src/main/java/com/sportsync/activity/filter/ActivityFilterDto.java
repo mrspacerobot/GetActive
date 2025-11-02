@@ -1,5 +1,6 @@
-package com.sportsync.activity;
+package com.sportsync.activity.filter;
 
+import com.sportsync.activity.Sport;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 import java.util.Map;

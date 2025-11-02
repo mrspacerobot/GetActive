@@ -1,5 +1,6 @@
 package com.sportsync.activity;
 
+import com.sportsync.activity.filter.ActivityFilter;
 import com.sportsync.user.User;
 import com.sportsync.user.UserService;
 import java.time.LocalDateTime;

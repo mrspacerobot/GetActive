@@ -17,7 +17,7 @@ import org.testcontainers.utility.DockerImageName;
 public abstract class BaseTestWithDatabase {
 
   static DockerImageName postgisImage =
-      DockerImageName.parse("postgis/postgis:15-3.3-alpine").asCompatibleSubstituteFor("postgres");
+      DockerImageName.parse("postgis/postgis:17-3.5").asCompatibleSubstituteFor("postgres");
 
   @Container static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(postgisImage);
 
@@ -26,8 +26,6 @@ public abstract class BaseTestWithDatabase {
     registry.add("spring.datasource.url", postgres::getJdbcUrl);
     registry.add("spring.datasource.username", postgres::getUsername);
     registry.add("spring.datasource.password", postgres::getPassword);
-    registry.add("spring.flyway.enabled", () -> "false");
-    registry.add("spring.jpa.hibernate.ddl-auto", () -> "create-drop");
   }
 
   @PersistenceContext protected EntityManager entityManager;

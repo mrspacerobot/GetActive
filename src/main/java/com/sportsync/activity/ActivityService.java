@@ -2,6 +2,8 @@ package com.sportsync.activity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import com.sportsync.activity.filter.ActivityFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

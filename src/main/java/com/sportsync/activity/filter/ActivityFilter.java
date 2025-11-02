@@ -1,9 +1,11 @@
-package com.sportsync.activity;
+package com.sportsync.activity.filter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.sportsync.activity.Sport;
 import lombok.Builder;
 
 /** Main filter record for activities that combines common and sport-specific predicates */

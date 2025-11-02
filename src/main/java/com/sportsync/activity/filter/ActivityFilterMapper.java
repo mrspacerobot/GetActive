@@ -1,7 +1,10 @@
-package com.sportsync.activity;
+package com.sportsync.activity.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
+
+import com.sportsync.activity.RunningTerrain;
+import com.sportsync.activity.Sport;
 import org.springframework.stereotype.Component;
 
 @Component

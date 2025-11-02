@@ -3,6 +3,8 @@ package com.sportsync.activity;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.sportsync.BaseTestWithDatabase;
+import com.sportsync.activity.filter.ActivityFilter;
+import com.sportsync.activity.filter.RunningFilter;
 import com.sportsync.user.User;
 import java.time.LocalDateTime;
 import java.util.List;

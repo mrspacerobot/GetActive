@@ -9,6 +9,10 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.UUID;
+
+import com.sportsync.activity.filter.ActivityFilter;
+import com.sportsync.activity.filter.ActivityFilterDto;
+import com.sportsync.activity.filter.ActivityFilterMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
